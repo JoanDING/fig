@@ -1,0 +1,24 @@
+save_path: '../model/'
+dataset: 'women'
+# training
+max_eps: 200
+gpu: 0
+topk: 10
+batch_size: 512
+lr: 0.002
+lr_att: 0.002
+dropout: 0.2
+weight_decay: 0.000001
+weight_decay_att: 0.000002
+checkpoint: ""
+save_epoch: 200
+
+# model
+em_dim: 64
+num_layer: 1
+
+att_dim: 64
+activation_fun: leaky_relu
+attention_act: tanh
+share_scorer: 0
+classme: 0

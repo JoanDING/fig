@@ -1,0 +1,11 @@
+data/
+data/*
+data/amazon-men/
+data/amazon-men/*
+data/amazon-women/
+data/amazon-women/*
+data/pog/
+data/pog/*
+data/pog-full/
+data/pog-full/*
+.idea/*
