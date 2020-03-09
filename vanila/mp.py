@@ -14,13 +14,14 @@ class BaseMean_10160(nn.Module):
   def forward(self, embeddings):
     u_em = embeddings[:,0,:]
     i_em = embeddings[:,1:,:]
-    u_em = torch.unsqueeze(u_em,dim=-2)
+    u_em = torch.unsqueeze(u_em, dim=-2)
     u_em = u_em.expand_as(i_em)
+    ui = u_em * i_em
     mu = i_em.mean(dim=1,keepdim=True)
     mu_exp = mu.expand_as(i_em)
     adj = i_em * mu_exp
     adj = self.w1(adj)
-    ui = u_em * (i_em + adj)
+    ui = ui + adj
     ui_adj = self.activation_function(ui)
     out_embeddings = self.drop(ui_adj)
     return out_embeddings
@@ -61,3 +62,4 @@ class Scorers_w_id(nn.Module):
     else:
       prob = prob.sum(dim=1)/mask.sum(dim=1) # mean-->sum, for masking
     return prob
+
