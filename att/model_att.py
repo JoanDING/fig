@@ -6,7 +6,7 @@ import attentive_mp as mp
 
 class Model_att(nn.Module):
   def __init__(self, opt):
-    super(Model, self).__init__()
+    super(Model_att, self).__init__()
     em_dim = opt.em_dim
     vocab_size = opt.vocab_size
     self.DEVICE = opt.DEVICE

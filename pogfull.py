@@ -6,7 +6,6 @@ import numpy as np
 import scipy.io
 import json
 import copy
-import pdb
 
 import time
 
@@ -66,8 +65,6 @@ def convert_uid_iid_to_sample(uid_iid, items_map):
     for iid in iids:
       samp = [uid,iid]
       m = [1,1]
-      if iid == '29436':
-          pdb.set_trace()
       attrs = items_map[iid]
       for a in attrs:
         if a=='0':
@@ -201,7 +198,6 @@ def prepare_data(in_path):
   for k, v in targets.items():
     test_pos_neg[k] = v + neg_uid_iid[k]
 
-  pdb.set_trace()
 
   test_samps, mask_ts = convert_uid_iid_to_sample(test_pos_neg, items_map) # orig idx
   new_test = {} # orig uid as key, new idx in values

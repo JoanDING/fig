@@ -172,15 +172,16 @@ def prepare_data(in_path):
         uid = l[0]
         neg_uid_iid[uid] = l[1:]
   else:
-    all_iids = list(self.items_map.keys())
+    all_iids = list(items_map.keys())
     neg_uid_iid = {}
     for ts in test_list:
+      neg_items = []
       uid = ts[0]
       for i in range(99):
         neg_orig = random.choice(all_iids)
-        while neg_orig in self.pos_items[str(uid)]:
+        while neg_orig in pos_samp[str(uid)]:
             neg_orig = random.choice(all_iids)
-        neg_id = self.iid_idx[neg_orig]
+        neg_id = neg_orig
         neg_items.append(neg_id)
       neg_uid_iid[uid] = neg_items
     with open(test_neg_file,'w') as f:
@@ -243,7 +244,7 @@ def prepare_data(in_path):
     f.write(jstr)
 
   with open(os.path.join(in_path, 'amazon-men-group.indice_map.json'),'w') as f:
-    jstr = json.dumps({'ids_map':ids_map,'cnt':self.cnt})
+    jstr = json.dumps({'ids_map':ids_map,'cnt':cnt})
     f.write(jstr)
 
   print('data preparing done.')

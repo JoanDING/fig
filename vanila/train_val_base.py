@@ -9,6 +9,15 @@ from pog import *
 from pogfull import *
 from vanila_model import *
 import yaml
+import argparse
+ 
+torch.multiprocessing.set_sharing_strategy('file_system')
+def get_cmd():
+  parser = argparse.ArgumentParser()
+  parser.add_argument('-d' ,'--dataset', default = 'pog-full', type = str, help = 'which dataset to experiment')
+  parser.add_argument('-g' ,'--gpu', default = 1, type = int, help = 'which gpu to user')
+  args = parser.parse_args()
+  return args
 
 def train(opt):
   print('loading training data...')
@@ -126,18 +135,21 @@ def obj_dic(d):
 
 def main():
   opt = yaml.load(open("./config.yaml"))
+  paras = get_cmd()
+  for k, v in paras.__dict__.items():
+    opt[k] = v
   opt = obj_dic(opt)
-
+  root_path = os.path.join(os.getcwd(), "..")
   if opt.dataset in ['men', 'women']:
       opt.num_node = 7
-      opt.data_path = '/home/joan/djj_mask/data/amazon-' + opt.dataset
+      opt.data_path = root_path + '/data/amazon-' + opt.dataset
   elif opt.dataset == 'pog':
       opt.num_node = 6
-      opt.data_path = '~/djj_mask/data/pog'
+      opt.data_path = root_path + '/data/pog'
 
   elif opt.dataset == 'pog-full':
       opt.num_node = 25
-      opt.data_path = '~/djj_mask/data/pog-full'
+      opt.data_path = root_path + '/data/pog-full'
 
   train(opt)
 
